@@ -1,6 +1,7 @@
 package com.example.umain_test.network
 
-import com.example.umain_test.models.Restaurants
+import com.example.umain_test.model.Restaurants
+
 import retrofit2.http.GET
 import javax.inject.Singleton
 
@@ -8,7 +9,7 @@ import javax.inject.Singleton
 @Singleton
 interface RestaurantsInterface {
     @GET("restaurants")
-    suspend fun getAllRestaurants() : Restaurants
+    suspend fun getAllRestaurants() : List<Restaurants>
 }
 
 

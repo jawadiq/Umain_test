@@ -54,8 +54,8 @@ android {
 
 dependencies {
     //DI
-    implementation("com.google.dagger:hilt-android:2.44")
-    kapt("com.google.dagger:hilt-android-compiler:2.44")
+    implementation("com.google.dagger:hilt-android:2.48")
+    kapt("com.google.dagger:hilt-android-compiler:2.48")
 //    kapt {
 //        correctErrorTypes = true
 //    }
@@ -79,10 +79,21 @@ dependencies {
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation("androidx.navigation:navigation-compose:2.4.0")
+    implementation ("io.ktor:ktor-client-android:2.3.6")
+    implementation ("io.ktor:ktor-client-json:2.3.6")
+    implementation ("io.ktor:ktor-client-serialization:2.3.6")
+    implementation ("io.ktor:ktor-client-logging:2.3.6")
+
+
     //viewmodel
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1")
     //imaging
-    implementation("io.coil-kt:coil:2.5.0")
+
+    implementation("io.coil-kt:coil-compose:2.5.0")
+    implementation ("com.github.bumptech.glide:glide:4.16.0")
+    //coroutines
+    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.9")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1")
 
 }
 
