@@ -58,7 +58,7 @@ dependencies {
     implementation("com.google.dagger:hilt-android:2.48")
     kapt("com.google.dagger:hilt-android-compiler:2.48")
 //
-//    implementation ("androidx.hilt:hilt-navigation-compose:1.0.0")
+    implementation ("androidx.hilt:hilt-navigation-compose:1.0.0")
 //    kapt ("androidx.hilt:hilt-compiler:2.48")
 
 
@@ -80,7 +80,7 @@ dependencies {
     //Network
 //    implementation("com.squareup.retrofit2:retrofit:2.9.0")
 //    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
-    implementation("androidx.navigation:navigation-compose:2.4.0")
+    implementation("androidx.navigation:navigation-compose:2.5.3")
 //    implementation ("io.ktor:ktor-client-android:2.3.6")
 //    implementation ("io.ktor:ktor-client-json:2.3.6")
 ////    implementation ("io.ktor:ktor-client-serialization:2.3.6")
@@ -102,6 +102,8 @@ dependencies {
 
     //viewmodel
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1")
+//    implementation ("androidx.lifecycle:lifecycle-viewmodel-compose:1.0.0-alpha07")
+
     //imaging
 
     implementation("io.coil-kt:coil-compose:2.5.0")

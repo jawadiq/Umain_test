@@ -20,6 +20,6 @@ class AppModule {
 fun getHttpClient(httpClient: TmdbClient) : HttpClient = httpClient.getHttpClient()
 
     @Provides
-    fun getRestaraunts (impl : KtorApiClientIMPLE) : RestarauntsRepository = impl
+    fun getRestarauntsRepository (impl : KtorApiClientIMPLE) : RestarauntsRepository = impl
 
 }

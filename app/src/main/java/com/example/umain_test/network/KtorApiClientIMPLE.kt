@@ -21,7 +21,7 @@ class KtorApiClientIMPLE @Inject constructor(
 
             Resource.Success(
             myClient.get<AllRestaurants>{
-                url(Constants.MAIN_URL)
+                url(Constants.RESTAURANTS)
             }.restaurants
             )
 

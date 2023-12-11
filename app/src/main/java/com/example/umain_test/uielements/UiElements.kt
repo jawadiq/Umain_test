@@ -29,12 +29,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberImagePainter
 import coil.size.OriginalSize
-import com.example.umain_test.model.AllRestaurants
+import com.example.umain_test.R
+import com.example.umain_test.model.Restaurant
 
 @Composable
-fun HeaderCard(restarant: AllRestaurants) {
-
-
+fun RestaurantItems(restaurant: Restaurant) {
     Card(
         shape = RoundedCornerShape(10.dp, 10.dp, 0.dp, 0.dp),
 
@@ -64,7 +63,7 @@ fun HeaderCard(restarant: AllRestaurants) {
 
                 Image(
                     painter = rememberImagePainter(
-                        data = "https://food-delivery.umain.io/images/restaurant/burgers.png",
+                        data = restaurant.imageUrl,
                         builder = {
                             size(OriginalSize)
                         },
@@ -81,9 +80,9 @@ fun HeaderCard(restarant: AllRestaurants) {
                         .wrapContentSize()
                         .fillMaxWidth()) {
                     Column (Modifier.wrapContentSize()){
-                        Text(text = "Restaurant name")
-                        Text(text = "type of delivery")
-                        Text(text = "time of delivery of delivery")
+                        Text(text = restaurant.name)
+                        Text(text = "Type  of Delivery")
+                        Text(text = restaurant.deliveryTimeMinutes.toString())
                     }
 
                     Text(text = "Rating bar")

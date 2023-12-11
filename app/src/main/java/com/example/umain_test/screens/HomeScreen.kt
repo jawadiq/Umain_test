@@ -18,6 +18,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Face
 import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -25,61 +26,55 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.umain_test.R
-import com.example.umain_test.model.AllRestaurants
 import com.example.umain_test.navigation.AppScreens
-import com.example.umain_test.uielements.HeaderCard
+
 import com.example.umain_test.uielements.RowCard
 import com.example.umain_test.util.Resource
 import com.example.umain_test.viewmmodel.MainViewModel
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.umain_test.model.AllRestaurants
+import com.example.umain_test.model.Restaurant
+import com.example.umain_test.uielements.RestaurantItems
 
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @RequiresApi(Build.VERSION_CODES.R)
 @Composable
+
 fun HomeScreen(navController: NavController){
+    val mContext  = LocalContext.current
     Column (modifier = Modifier
         .fillMaxWidth()
         .fillMaxHeight()){
-        val mContext  = LocalContext.current
+
         Scaffold(
             topBar = {
-                val mContext = LocalContext.current
-
                 TopAppBar(
                     title = { Text(text = stringResource(R.string.head_name)) },
                     navigationIcon = {
-//                    IconButton(onClick = {  }) {
-//                        Icon(
-//                            imageVector = Icons.Default.Menu,
-//                            contentDescription = null
-//                        )
-//                    }
-                    },
+                                     },
                     actions = {
                         IconButton(onClick = { /* Handle action click */ }) {
                             Icon(
-                                imageVector = Icons.Default.Face,
+                                imageVector = Icons.Default.Search,
                                 contentDescription = null
                             )
                         }
-                        IconButton(onClick = {}) {
-                            Icon(
-                                imageVector = Icons.Default.Home,
-                                contentDescription = null
-                            )
-                        }
+
                     })
             }
         ){
             MainContent(navController = navController)
+            
+
 
                 }
 
@@ -91,58 +86,61 @@ fun HomeScreen(navController: NavController){
 @RequiresApi(Build.VERSION_CODES.R)
 @Composable
 fun MainContent(navController: NavController) {
-    val viewModel: MainViewModel = viewModel()
-    val restaurant = viewModel.restaurants
+    val viewModel: MainViewModel = hiltViewModel()
+    val restaurant = viewModel.restaurants.collectAsState()
     val context = LocalContext.current
+
 
     Column(
         modifier = Modifier
             .fillMaxWidth()
             .fillMaxHeight()
     ) {
-        UpperRow(navController = navController)
+        UpperRow()
+        restaurant.value.let {
+            when (it) {
+                is Resource.Success -> {
+                    Column {
+                        RestaurantsList(it.result)
+                    }
+
+                }
+                        is Resource.Failure -> {
+                  Toast.makeText(context,it.exception.message!!, Toast.LENGTH_LONG).show()
+                            Log.d("error",it.exception.message!! )
+        }
+                        Resource.Loading -> {
+                            Toast.makeText(context, "Loading", Toast.LENGTH_LONG).show()
+        }
+
+                else -> {}
+            }
+
+
+        }
 
     }
 }
 
 
-
-
-
 @Composable
-fun RestaurantsList( restaurants: List<AllRestaurants>){
+fun RestaurantsList(restaurants: List<Restaurant>){
+    val context = LocalContext.current
     LazyColumn{
         items(restaurants){item ->
-            HeaderCard(item)
+       RestaurantItems(item)
+//            Toast.makeText(context, "restaurants.size.toString()", Toast.LENGTH_LONG).show()
         }
     }
 
 }
 
-//    @RequiresApi(Build.VERSION_CODES.R)
-//    @Composable
-//    fun lowerColumn(
-//        restaurants: List<AllRestaurants>
-//    ) {
-//        val mContext = LocalContext.current
-////        private val viewModel by viewModels<MainViewModel>()
-//        LazyColumn {
-//            items(restaurants) {
-//                HeaderCard() {
-//
-//
-////                    navController.navigate(route = AppScreens.DetailsScreen.name)
-//
-////                }
-//
-//            }
-//
-//        }
 
 @Composable
 fun UpperRow(testList : List<String> = listOf(
     "one","two","three","four",
-),navController: NavController) {
+)
+             ) {
     Row(
         androidx.compose.ui.Modifier
             .fillMaxWidth()
@@ -152,12 +150,8 @@ fun UpperRow(testList : List<String> = listOf(
         LazyRow {
             items(items = testList) {
                RowCard(test = it) {
-//            test ->
-//      mytoast(mContext,test)
 
-                    navController.navigate(route = AppScreens.DetailsScreen.name)
-
-                }
+               }
             }
         }
     }
@@ -167,3 +161,26 @@ fun UpperRow(testList : List<String> = listOf(
         Toast.makeText(context, messege, Toast.LENGTH_LONG).show()
 
     }
+
+//restaurant.value.let {
+//    when (it) {
+//        is Resource.Failure -> {
+//                  Toast.makeText(context,it.exception.message!!, Toast.LENGTH_LONG).show()
+//            Text(text = "it.exception.message!!")
+//            Log.d("error",it.exception.message!! )
+//        }
+//
+//        Resource.Loading -> {
+//
+//        }
+//
+//        is Resource.Success -> {
+//            Column {
+//
+//                RestaurantsList(it.result)
+//            }
+//
+//
+//        }
+//
+//        else -> {} }
