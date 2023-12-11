@@ -1,40 +1,32 @@
 package com.example.umain_test.viewmmodel
 
-
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.umain_test.model.Restaurants
-
-
-import com.example.umain_test.network.Constants
-import com.example.umain_test.network.RestaurantsInterface
+import com.example.umain_test.model.AllRestaurants
+import com.example.umain_test.model.Restaurant
+import com.example.umain_test.network.RestarauntsRepository
+import com.example.umain_test.util.Resource
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
-class MainViewModel () : ViewModel() {
-    val retrofit = Retrofit.Builder()
-        .baseUrl(Constants.BASE_URL)
-        .addConverterFactory(GsonConverterFactory.create())
-        .build()
-    val apiService = retrofit.create(RestaurantsInterface::class.java)
+@HiltViewModel
 
-    
-    private val _rests = MutableLiveData<Restaurants>()
-    val rests : LiveData<Restaurants> = _rests
+class MainViewModel @Inject constructor(
 
-    fun fetchPosts() {
+    private val repository: RestarauntsRepository
+) : ViewModel() {
+    private val _restarants = MutableStateFlow<Resource<List<Restaurant>>?>(null)
+
+    val restaurants : StateFlow<Resource<List<Restaurant>>?> = _restarants
+    init{
         viewModelScope.launch {
-            try {
-                val response = apiService.getAllRestaurants()
-                _rests.value = response.get(1)
-
-            }catch (e: Exception){
-
-            }
+            _restarants.value = Resource.Loading
+            _restarants.value = repository.getAllRestaurants()
         }
+    }
 
-}}
+}

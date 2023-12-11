@@ -9,20 +9,15 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -32,22 +27,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
-import coil.ImageLoader
-import coil.compose.AsyncImage
 import coil.compose.rememberImagePainter
 import coil.size.OriginalSize
-import com.bumptech.glide.load.resource.bitmap.CenterInside
-import com.example.umain_test.viewmmodel.MainViewModel
-import java.nio.file.WatchEvent
+import com.example.umain_test.model.AllRestaurants
 
 @Composable
-fun HeaderCard(
-    test: String,
-    onItemClicke: (String) -> Unit = {}
-) {
-    val viewModel: MainViewModel = viewModel()
+fun HeaderCard(restarant: AllRestaurants) {
+
 
     Card(
         shape = RoundedCornerShape(10.dp, 10.dp, 0.dp, 0.dp),
@@ -58,7 +44,7 @@ fun HeaderCard(
             .wrapContentHeight()
             .padding(10.dp, 0.dp, 10.dp, 0.dp)
             .clickable {
-                onItemClicke(test)
+//                onItemClicke()
             },
         border = BorderStroke(1.dp, Color(0xffeff1f5)),
         //set card elevation of the card
@@ -67,7 +53,7 @@ fun HeaderCard(
         ),
 
         ) {
-        val viewModel: MainViewModel = viewModel()
+
 //        val resto by viewModel.rests.
         Column(verticalArrangement = Arrangement.spacedBy((-40).dp)) {
             Row(
