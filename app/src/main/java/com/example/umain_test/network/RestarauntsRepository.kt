@@ -10,6 +10,7 @@ interface RestarauntsRepository {
     suspend fun getAllRestaurants(): Resource<List<Restaurant>>
     suspend fun getRestaurant () : List<Restaurant>
     suspend fun searchRestaurants(search:String) : Resource<AllRestaurants>
+    suspend fun filterRestaurants(search:String) : Resource<Restaurant>
 
 
 }

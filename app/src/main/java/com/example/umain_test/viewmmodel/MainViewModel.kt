@@ -20,12 +20,17 @@ class MainViewModel @Inject constructor(
     private val repository: RestarauntsRepository
 ) : ViewModel() {
     private val _restarants = MutableStateFlow<Resource<List<Restaurant>>?>(null)
-
     val restaurants : StateFlow<Resource<List<Restaurant>>?> = _restarants
+
+    private val _filteredRestaurants = MutableStateFlow<Resource<Restaurant>?>(null)
+    val filteredRestaurants : StateFlow<Resource<Restaurant>?> = _filteredRestaurants
+    val id :String =  restaurants.value.toString()
     init{
         viewModelScope.launch {
             _restarants.value = Resource.Loading
             _restarants.value = repository.getAllRestaurants()
+            _filteredRestaurants.value = Resource.Loading
+            _filteredRestaurants.value = repository.filterRestaurants(id)
 
         }
     }
