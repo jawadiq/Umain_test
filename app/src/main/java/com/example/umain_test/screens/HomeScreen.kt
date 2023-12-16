@@ -139,10 +139,6 @@ fun RestaurantsList(restaurants: List<Restaurant>,navController: NavController){
         items(items = restaurants){item ->
        RestaurantItems(restaurant = item){item ->
            navController.navigate(route = AppScreens.DetailsScreen.name+"/$item");
-//           navController.navigate(route = AppScreens.DetailsScreen.name+"/$item"+
-//                   "/$item")
-
-
        }
 
 

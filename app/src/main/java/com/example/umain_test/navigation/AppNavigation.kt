@@ -22,36 +22,17 @@ fun  ApplicationNavigation(){
         composable(AppScreens.HomeScreen.name){
          HomeScreen(navController = navController)
         }
-
-
-
         composable(AppScreens.DetailsScreen.name+"/{restarantId}",
             arguments = listOf(navArgument(name = "restarantId"){type = NavType.StringType}
-//                navArgument(name = "name_Key"){type = NavType.StringType}
-                )
-        ){
-//    backStackEntry ->
-//            DetailsScreen(navController = navController,backStackEntry.arguments?.getString("restarantId","name_Key")
-//            )
+
+                )){
+
                 backStackEntry ->
             val restId = backStackEntry.arguments?.getString("restarantId")
             val restNamme = backStackEntry.arguments?.getString("name_Key")
             DetailsScreen(navController = navController, restaurantId = restId,  resName = restNamme )
 
         }
-
-//        composable(AppScreens.DetailsScreen.name+"/{restarantId}"+"/{nameKey}",
-//            arguments = listOf(navArgument(name = "restarantId"){type = NavType.StringType}
-////                navArgument(name = "nameKey"){type = NavType.StringType}
-//            )
-//        ){
-//                backStackEntry ->
-//            DetailsScreen(navController = navController,backStackEntry.arguments?.getString("restarantId"))
-////        }
-//
-//        }
-
-
     }
 
 }
