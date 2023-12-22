@@ -66,11 +66,10 @@ fun RestaurantItems(
                 onItemClick(
                     restaurant.id,
                     restaurant.name,
-                    restaurant.rating.toString(),
+                    restaurant.deliveryTimeMinutes.toString(),
                     URLEncoder.encode(restaurant.imageUrl, StandardCharsets.UTF_8.toString())
                 )//
-//                "android-app://androidx.navigation/DetailsScreen/7450002/Yuma´s Candyshop/https://food-delivery.umain.io/images/restaurant/candy.png"
-//                android-app://androidx.navigation/DetailsScreen/7450002/Yuma´s Candyshop/https://food-delivery.umain.io/images/restaurant/candy.png
+
 
             },
         border = BorderStroke(1.dp, Color(0xffeff1f5)),

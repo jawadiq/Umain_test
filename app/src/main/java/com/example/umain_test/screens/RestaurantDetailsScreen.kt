@@ -44,17 +44,17 @@ import com.example.umain_test.viewmmodel.MainViewModel
 fun  DetailsScreen(
     navController: NavController
     , restaurantId: String? ,
-    resName : String?,rating :String ?
+    resName : String?,status :String ?
     ,imgUrl :String?,
     viewModel: MainViewModel = hiltViewModel()
-
 
 ){
     val mContext  = LocalContext.current
 
 viewModel.resStatus.value?.restaurantId
         val isOpen = viewModel.resStatus.value?.isCurrentlyOpen
-    val auto =  Constants.FILTER_RESTAURANTS + restaurantId
+    val   auto = restaurantId?.let { viewModel.fetchRestaurantStatusById(it) }
+
     Scaffold(
         topBar = {
             TopAppBar(
@@ -90,9 +90,18 @@ viewModel.resStatus.value?.restaurantId
                     contentScale = ContentScale.Crop,
                     modifier = Modifier.fillMaxWidth()
                 )
-                RestaurantNameCard(restaurantId,resName,rating,imgUrl)
 
-                    Text(text = isOpen.toString())
+                if (isOpen == true){
+                    status == "Open"
+                    RestaurantNameCard(restaurantId,resName,status,imgUrl)
+                }
+                else{
+                    status == "Closed"
+                    RestaurantNameCard(restaurantId,resName,status,imgUrl)
+                }
+
+
+
                 }
 
             }

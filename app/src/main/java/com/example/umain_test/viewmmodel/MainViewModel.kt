@@ -35,10 +35,12 @@ class MainViewModel @Inject constructor(
         viewModelScope.launch {
             _restarants.value = Resource.Loading
             _restarants.value = repository.getAllRestaurants()
-
-            _restaurantStatus.value    = repository.restaurantStatus()
-
-
+//            _restaurantStatus.value    = repository.restaurantStatus()
+        }
+    }
+    fun fetchRestaurantStatusById(id: String) {
+        viewModelScope.launch {
+            _restaurantStatus.value = repository.restaurantStatus(id)
         }
     }
 

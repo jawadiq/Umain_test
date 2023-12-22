@@ -28,34 +28,16 @@ class KtorApiClientIMPLE @Inject constructor(
         }
     }
 
-    override suspend fun restaurantStatus(): RestarantStatus {
+    override suspend fun restaurantStatus(Id:String): RestarantStatus {
 
 
         return myClient.get {
             url {
-                takeFrom(Constants.RESTAURANT_STATUS+7450007)
+                takeFrom(Constants.RESTAURANT_STATUS+Id)
             }
         }
     }
 }
-//    override suspend fun getRestaurant(): List<Restaurant> {
-//        TODO("Not yet implemented")
-//
-//    }override suspend fun searchRestaurants(search: String): Resource<AllRestaurants> {
-//        TODO("Not yet implemented")
-//}
-//
-//    override suspend fun filterRestaurants(search: String): Resource<Restaurant> {
-//        return try {
-//            Resource.Success(
-//                myClient.get{
-//                    url(Constants.FILTER_RESTAURANTS)
-//                }
-//            )
-//        }catch (e : Exception){
-//            e.printStackTrace()
-//            Resource.Failure(e)
-//        }
-//    }
+
 
 

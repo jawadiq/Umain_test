@@ -42,7 +42,7 @@ fun  ApplicationNavigation(){
                 navController = navController,
                 restaurantId = restId,
                 resName = restName,
-                rating = restRating,
+                status = restRating,
                 imgUrl = restImgUrl
             )
         }

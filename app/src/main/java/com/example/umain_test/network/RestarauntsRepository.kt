@@ -13,7 +13,7 @@ interface RestarauntsRepository {
 //    suspend fun searchRestaurants(search:String) : Resource<AllRestaurants>
 //    suspend fun filterRestaurants(search:String) : Resource<Restaurant>
 
-    suspend fun restaurantStatus (): RestarantStatus
+    suspend fun restaurantStatus (Id:String): RestarantStatus
 
 
 }
