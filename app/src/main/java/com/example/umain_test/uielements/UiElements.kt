@@ -1,5 +1,7 @@
 package com.example.umain_test.uielements
 
+import android.net.Uri
+import android.widget.Toast
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -8,7 +10,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -18,11 +19,7 @@ import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AcUnit
-import androidx.compose.material.icons.filled.LockClock
-import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Star
-import androidx.compose.material.icons.filled.SyncLock
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.LocalContentColor
@@ -32,7 +29,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
@@ -46,13 +42,17 @@ import coil.compose.rememberImagePainter
 import coil.size.OriginalSize
 import com.example.umain_test.R
 import com.example.umain_test.model.Restaurant
+import io.ktor.http.Url
+import java.net.URLEncoder
+import java.nio.charset.StandardCharsets
 
 @Composable
 fun RestaurantItems(
-    restaurant: Restaurant,//need to fix this
-    onItemClick: (String) -> Unit = {}
-//    ,
-//    navController: NavController
+    restaurant: Restaurant,
+    //, restaurantname: Restaurant,//need to fix this
+    onItemClick: (String,String,String,String) -> Unit = {id,name,rating,imageUrl ->
+        val encodedUrl = URLEncoder.encode(imageUrl, StandardCharsets.UTF_8.toString())
+    }
 ) {
     val context = LocalContext.current
     Card(
@@ -63,10 +63,15 @@ fun RestaurantItems(
             .wrapContentHeight()
             .padding(10.dp, 0.dp, 10.dp, 0.dp)
             .clickable {
-                onItemClick(restaurant.name)//
-//                navController.navigate(route = AppScreens.DetailsScreen.name)
-//                Toast.makeText(context,restaurant.name,Toast.LENGTH_LONG).show()
-//                Log.d(TAG , restaurant.id)
+                onItemClick(
+                    restaurant.id,
+                    restaurant.name,
+                    restaurant.rating.toString(),
+                    URLEncoder.encode(restaurant.imageUrl, StandardCharsets.UTF_8.toString())
+                )//
+//                "android-app://androidx.navigation/DetailsScreen/7450002/Yuma´s Candyshop/https://food-delivery.umain.io/images/restaurant/candy.png"
+//                android-app://androidx.navigation/DetailsScreen/7450002/Yuma´s Candyshop/https://food-delivery.umain.io/images/restaurant/candy.png
+
             },
         border = BorderStroke(1.dp, Color(0xffeff1f5)),
         //set card elevation of the card
@@ -76,7 +81,6 @@ fun RestaurantItems(
 
         ) {
 
-//        val resto by viewModel.rests.
         Column(verticalArrangement = Arrangement.spacedBy((-40).dp)) {
             Row(
                 Modifier
@@ -180,7 +184,8 @@ fun RowCard( restaurant: Restaurant,
         }
 }
 @Composable
-fun RestaurantNameCard(name: String?){
+fun RestaurantNameCard(Id: String?,name : String?
+                       ,rating :String?,imgUrl :String?){
     Card(
         shape = RoundedCornerShape(10.dp, 10.dp, 10.dp, 10.dp),
 
@@ -188,7 +193,7 @@ fun RestaurantNameCard(name: String?){
             .padding(5.dp)
             .wrapContentWidth()
             .wrapContentHeight()
-            .padding(0.dp, 0.dp, 0.dp, 0.dp),
+            .padding(10.dp, 0.dp, 10.dp, 0.dp),
         border = BorderStroke(2.dp, Color(0xFFEBEDF1)),
         //set card elevation of the card
         elevation = CardDefaults.cardElevation(
@@ -205,9 +210,10 @@ fun RestaurantNameCard(name: String?){
 //                Spacer(modifier = Modifier.size(50.dp))
                 Text(text = name.toString(),color = Color.Black, fontSize = 30.sp)
 //                Spacer(modifier = Modifier.size(15.dp))
-                Text(text = stringResource(id = R.string.take_out),color = Color.Gray, fontSize = 30.sp)
-//                Spacer(modifier = Modifier.size(15.dp))
-                Text(text = stringResource(id = R.string.open_close),color = Color.Green, fontSize = 20.sp)
+                Text(text =rating.toString(),color = Color.Gray, fontSize = 30.sp)
+
+//            Spacer(modifier = Modifier.size(15.dp))
+                Text(text = Id.toString(),color = Color.Green, fontSize = 20.sp)
 //                Spacer(modifier = Modifier.size(15.dp))
 //                Text(text =  R.string.take_out, fontSize = 30.sp)
             }
@@ -230,7 +236,7 @@ fun Icon(
 @Preview
 @Composable
 fun RestaurantNameCardPreview() {
-    RestaurantNameCard("Presview")
+//    RestaurantNameCard("Presview")
 }
 
 @Preview

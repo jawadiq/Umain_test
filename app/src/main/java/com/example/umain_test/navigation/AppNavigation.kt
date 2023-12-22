@@ -22,16 +22,29 @@ fun  ApplicationNavigation(){
         composable(AppScreens.HomeScreen.name){
          HomeScreen(navController = navController)
         }
-        composable(AppScreens.DetailsScreen.name+"/{restarantId}",
-            arguments = listOf(navArgument(name = "restarantId"){type = NavType.StringType}
 
-                )){
+        composable(
+            AppScreens.DetailsScreen.name + "/{restarantId}/{restarantname}/{rating}/{imgUrl}",
+            arguments = listOf(
+                navArgument(name = "restarantId") { type = NavType.StringType },
+                navArgument(name = "restarantname") { type = NavType.StringType },
+                navArgument(name = "rating") { type = NavType.StringType },
+                navArgument(name = "imgUrl") { type = NavType.StringType }
+            )
+        ) { backStackEntry ->
+            val restId = backStackEntry.arguments?.getString("restarantId") ?: ""
+            val restName = backStackEntry.arguments?.getString("restarantname") ?: ""
+            val restRating = backStackEntry.arguments?.getString("rating") ?: ""
+            val restImgUrl = backStackEntry.arguments?.getString("imgUrl") ?: ""
 
-                backStackEntry ->
-            val restId = backStackEntry.arguments?.getString("restarantId")
-            val restNamme = backStackEntry.arguments?.getString("name_Key")
-            DetailsScreen(navController = navController, restaurantId = restId,  resName = restNamme )
-
+            // Corrected DetailsScreen invocation with all required arguments
+            DetailsScreen(
+                navController = navController,
+                restaurantId = restId,
+                resName = restName,
+                rating = restRating,
+                imgUrl = restImgUrl
+            )
         }
     }
 

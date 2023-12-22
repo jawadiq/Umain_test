@@ -19,6 +19,7 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Color.Companion.Transparent
@@ -33,17 +34,27 @@ import androidx.navigation.NavController
 import coil.compose.rememberImagePainter
 import coil.size.OriginalSize
 import com.example.umain_test.R
+import com.example.umain_test.network.Constants
 import com.example.umain_test.uielements.RestaurantNameCard
 import com.example.umain_test.viewmmodel.MainViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter", "RememberReturnType")
 @Composable
 fun  DetailsScreen(
     navController: NavController
-    , restaurantId: String? , resName : String?
+    , restaurantId: String? ,
+    resName : String?,rating :String ?
+    ,imgUrl :String?,
+    viewModel: MainViewModel = hiltViewModel()
+
+
 ){
     val mContext  = LocalContext.current
+
+viewModel.resStatus.value?.restaurantId
+        val isOpen = viewModel.resStatus.value?.isCurrentlyOpen
+    val auto =  Constants.FILTER_RESTAURANTS + restaurantId
     Scaffold(
         topBar = {
             TopAppBar(
@@ -63,8 +74,6 @@ fun  DetailsScreen(
                 })
         }
     ){
-        val viewModel: MainViewModel = hiltViewModel()
-        val getRestaurant = viewModel.restaurants.collectAsState()
         Surface(
             Modifier
                 .fillMaxWidth()
@@ -72,7 +81,7 @@ fun  DetailsScreen(
             Column(verticalArrangement = Arrangement.spacedBy((-40).dp)) {
                 Image(
                     painter = rememberImagePainter(
-                        data = "https://food-delivery.umain.io/images/restaurant/burgers.png",
+                        data = imgUrl,
                         builder = {
                             size(OriginalSize)
                         },
@@ -81,11 +90,14 @@ fun  DetailsScreen(
                     contentScale = ContentScale.Crop,
                     modifier = Modifier.fillMaxWidth()
                 )
-                RestaurantNameCard(restaurantId)
+                RestaurantNameCard(restaurantId,resName,rating,imgUrl)
+
+                    Text(text = isOpen.toString())
+                }
+
             }
 
         }
     }
 
-}
 
