@@ -18,6 +18,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -51,10 +52,15 @@ fun  DetailsScreen(
 ){
     val mContext  = LocalContext.current
 
-viewModel.resStatus.value?.restaurantId
-        val isOpen = viewModel.resStatus.value?.isCurrentlyOpen
-    val   auto = restaurantId?.let { viewModel.fetchRestaurantStatusById(it) }
-
+//viewModel.resStatus.value?.restaurantId
+//        val isOpen = viewModel.resStatus.value?.isCurrentlyOpen
+//    val   auto = restaurantId?.let { viewModel.fetchRestaurantStatusById(it) }
+    LaunchedEffect(restaurantId ){
+        if (restaurantId != null) {
+            viewModel.fetchRestaurantStatusById(restaurantId)
+        }
+    }
+    val restStatus =  viewModel.resStatus.value?.isCurrentlyOpen
     Scaffold(
         topBar = {
             TopAppBar(
@@ -91,22 +97,15 @@ viewModel.resStatus.value?.restaurantId
                     modifier = Modifier.fillMaxWidth()
                 )
 
-                if (isOpen == true){
-                    status == "Open"
-                    RestaurantNameCard(restaurantId,resName,status,imgUrl)
-                }
-                else{
-                    status == "Closed"
-                    RestaurantNameCard(restaurantId,resName,status,imgUrl)
-                }
-
-
-
-                }
+               
+                RestaurantNameCard(restaurantId,resName,status,imgUrl)
+                Text(text = restStatus.toString())
+            
+                                  } }
 
             }
 
         }
-    }
+    
 
 

@@ -58,7 +58,7 @@ dependencies {
     implementation("com.google.dagger:hilt-android:2.48")
     kapt("com.google.dagger:hilt-android-compiler:2.48")
 //
-    implementation ("androidx.hilt:hilt-navigation-compose:1.0.0")
+    implementation ("androidx.hilt:hilt-navigation-compose:1.1.0")
 //    kapt ("androidx.hilt:hilt-compiler:2.48")
 
 
@@ -87,7 +87,6 @@ dependencies {
     implementation ("io.ktor:ktor-client-serialization:1.5.0")
     implementation ("io.ktor:ktor-client-logging-jvm:1.5.0")
     implementation ("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.3")
-
 
     //viewmodel
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1")

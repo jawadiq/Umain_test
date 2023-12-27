@@ -9,6 +9,7 @@ import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
@@ -107,11 +108,15 @@ var isVisible by remember {
                         is Resource.Failure -> {
                   Toast.makeText(context,it.exception.message!!, Toast.LENGTH_LONG).show()
                             Log.d("error",it.exception.message!! )
+                            Text(text = it.exception.message.toString(),Modifier.fillMaxSize())
         }
                         Resource.Loading -> {
                             Toast.makeText(context, "Loading", Toast.LENGTH_LONG).show()
         }
-                else -> {}
+                else -> {
+
+
+                }
             }
 
 

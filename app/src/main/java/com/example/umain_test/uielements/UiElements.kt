@@ -25,6 +25,7 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -38,10 +39,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.rememberImagePainter
 import coil.size.OriginalSize
 import com.example.umain_test.R
 import com.example.umain_test.model.Restaurant
+import com.example.umain_test.viewmmodel.MainViewModel
 import io.ktor.http.Url
 import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
@@ -184,7 +187,9 @@ fun RowCard( restaurant: Restaurant,
 }
 @Composable
 fun RestaurantNameCard(Id: String?,name : String?
-                       ,rating :String?,imgUrl :String?){
+                       ,rating :String?,imgUrl :String?,
+                       viewModel: MainViewModel = hiltViewModel()
+){
     Card(
         shape = RoundedCornerShape(10.dp, 10.dp, 10.dp, 10.dp),
 
@@ -201,6 +206,12 @@ fun RestaurantNameCard(Id: String?,name : String?
             containerColor = Color(0xFFF1F1ED),
         )
     ){
+        LaunchedEffect(Id ){
+            if (Id != null) {
+                viewModel.fetchRestaurantStatusById(Id)
+            }
+        }
+        val restStatus =  viewModel.resStatus.value?.isCurrentlyOpen
         Row(
             Modifier
                 .fillMaxWidth(),
@@ -210,9 +221,13 @@ fun RestaurantNameCard(Id: String?,name : String?
                 Text(text = name.toString(),color = Color.Black, fontSize = 30.sp)
 //                Spacer(modifier = Modifier.size(15.dp))
                 Text(text =rating.toString(),color = Color.Gray, fontSize = 30.sp)
-
+if (restStatus==true){
+    Text(text = "Open", color = Color(0xff3ae38e), fontSize = 20.sp)
+}else{
+    Text(text = "Closed",color = Color(0xff3ae38e), fontSize = 30.sp)
+}
 //            Spacer(modifier = Modifier.size(15.dp))
-                Text(text = Id.toString(),color = Color.Green, fontSize = 20.sp)
+
 //                Spacer(modifier = Modifier.size(15.dp))
 //                Text(text =  R.string.take_out, fontSize = 30.sp)
             }
