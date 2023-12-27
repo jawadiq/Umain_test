@@ -9,7 +9,7 @@ data class Restaurant(
     @SerialName("delivery_time_minutes")
     val deliveryTimeMinutes: Int,
     @SerialName("filterIds")
-    val filterIds: List<FilterIds>,
+    val filterIds: List<String>,
     @SerialName("id")
     val id: String,
     @SerialName("image_url")
