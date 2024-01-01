@@ -9,12 +9,9 @@ import com.example.umain_test.util.Resource
 
 interface RestarauntsRepository {
     suspend fun getAllRestaurants(): Resource<List<Restaurant>>
-//    suspend fun getRestaurant () : List<Restaurant>
-//    suspend fun searchRestaurants(search:String) : Resource<AllRestaurants>
-//    suspend fun filterRestaurants(search:String) : Resource<Restaurant>
 
     suspend fun restaurantStatus (Id:String): RestarantStatus
-//    suspend fun filterRestaurant() : Resource<List<FilterId>>
+
 //suspend fun restaurantFilter (): FilterId
 
 

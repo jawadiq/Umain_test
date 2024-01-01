@@ -28,8 +28,7 @@ class MainViewModel @Inject constructor(
 
     private val _restaurantStatus = mutableStateOf<RestarantStatus?>(null)
     val resStatus : State<RestarantStatus?> = _restaurantStatus
-//    private val _restaurantFilters = mutableStateOf<FilterId?>(null)
-//    val resFilter : State<FilterId?> = _restaurantFilters
+
 
     init{
         viewModelScope.launch {
@@ -43,10 +42,6 @@ class MainViewModel @Inject constructor(
             _restaurantStatus.value = repository.restaurantStatus(id)
         }
     }
-//    fun fetchRestaurantFilters() {
-//        viewModelScope.launch {
-//            _restaurantFilters.value = repository.restaurantFilter()
-//        }
-//    }
+
 
 }

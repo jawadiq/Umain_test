@@ -212,6 +212,8 @@ fun RestaurantNameCard(Id: String?,name : String?
             }
         }
         val restStatus =  viewModel.resStatus.value?.isCurrentlyOpen
+        val statusText = if (restStatus == true) "Open" else "Closed"
+
         Row(
             Modifier
                 .fillMaxWidth(),
@@ -220,16 +222,10 @@ fun RestaurantNameCard(Id: String?,name : String?
 //                Spacer(modifier = Modifier.size(50.dp))
                 Text(text = name.toString(),color = Color.Black, fontSize = 30.sp)
 //                Spacer(modifier = Modifier.size(15.dp))
-//                Text(text =rating.toString(),color = Color.Gray, fontSize = 30.sp)
-if (restStatus==true){
-    Text(text = "Open", color = CustomColors.textOpen, fontSize = 30.sp)
-}else{
-    Text(text = "Closed",color = CustomColors.textOpen, fontSize = 30.sp)
-}
-//            Spacer(modifier = Modifier.size(15.dp))
 
-//                Spacer(modifier = Modifier.size(15.dp))
-//                Text(text =  R.string.take_out, fontSize = 30.sp)
+    Text(text = statusText,color = CustomColors.textOpen, fontSize = 30.sp)
+
+
             }
 
         }

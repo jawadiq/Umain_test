@@ -7,5 +7,5 @@ package com.example.umain_test.network
      const val RESTAURANT_STATUS = "https://food-delivery.umain.io/api/v1/open/"
 
 
-     const val RESTAURANT_Test =  "https://food-delivery.umain.io/api/v1/open/7450001"
+//     const val RESTAURANT_Test =  "https://food-delivery.umain.io/api/v1/open/7450001"
  }
