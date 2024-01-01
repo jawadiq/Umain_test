@@ -5,6 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.umain_test.model.AllRestaurants
+import com.example.umain_test.model.FilterId
 import com.example.umain_test.model.RestarantStatus
 import com.example.umain_test.model.Restaurant
 import com.example.umain_test.network.RestarauntsRepository
@@ -25,17 +26,16 @@ class MainViewModel @Inject constructor(
     private val _restarants = MutableStateFlow<Resource<List<Restaurant>>?>(null)
     val restaurants : StateFlow<Resource<List<Restaurant>>?> = _restarants
 
-//    private val _filteredRestaurants = MutableStateFlow<Resource<Restaurant>?>(null)
-//    val filteredRestaurants : StateFlow<Resource<Restaurant>?> = _filteredRestaurants
-
     private val _restaurantStatus = mutableStateOf<RestarantStatus?>(null)
     val resStatus : State<RestarantStatus?> = _restaurantStatus
+//    private val _restaurantFilters = mutableStateOf<FilterId?>(null)
+//    val resFilter : State<FilterId?> = _restaurantFilters
 
     init{
         viewModelScope.launch {
             _restarants.value = Resource.Loading
             _restarants.value = repository.getAllRestaurants()
-//            _restaurantStatus.value    = repository.restaurantStatus()
+
         }
     }
     fun fetchRestaurantStatusById(id: String) {
@@ -43,5 +43,10 @@ class MainViewModel @Inject constructor(
             _restaurantStatus.value = repository.restaurantStatus(id)
         }
     }
+//    fun fetchRestaurantFilters() {
+//        viewModelScope.launch {
+//            _restaurantFilters.value = repository.restaurantFilter()
+//        }
+//    }
 
 }

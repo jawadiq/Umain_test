@@ -5,11 +5,12 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class FilterIds(
+data class FilterId(
     @SerialName("id")
-    val id: String,
-    @SerialName("image_url")
-    val imageUrl: String,
+    val id: List<String>,
     @SerialName("name")
-    val name: String
+    val name: String,
+    @SerialName("image_url")
+    val imageUrl: String
+
 )

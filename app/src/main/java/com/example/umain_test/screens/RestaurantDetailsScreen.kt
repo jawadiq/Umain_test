@@ -99,9 +99,7 @@ fun  DetailsScreen(
 
                
                 RestaurantNameCard(restaurantId,resName,status,imgUrl)
-                Text(text = restStatus.toString())
-            
-                                  } }
+            } }
 
             }
 

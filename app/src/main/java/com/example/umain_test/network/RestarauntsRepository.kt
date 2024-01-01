@@ -1,7 +1,6 @@
 package com.example.umain_test.network
 
-import com.example.umain_test.model.AllRestaurants
-import com.example.umain_test.model.FilterIds
+import com.example.umain_test.model.FilterId
 import com.example.umain_test.model.RestarantStatus
 import com.example.umain_test.model.Restaurant
 
@@ -15,7 +14,8 @@ interface RestarauntsRepository {
 //    suspend fun filterRestaurants(search:String) : Resource<Restaurant>
 
     suspend fun restaurantStatus (Id:String): RestarantStatus
-//    suspend fun filterRestaurant() : Resource<List<FilterIds>>
+//    suspend fun filterRestaurant() : Resource<List<FilterId>>
+//suspend fun restaurantFilter (): FilterId
 
 
 }

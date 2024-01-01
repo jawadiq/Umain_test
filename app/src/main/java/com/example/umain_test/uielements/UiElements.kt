@@ -69,7 +69,7 @@ fun RestaurantItems(
                 onItemClick(
                     restaurant.id,
                     restaurant.name,
-                    restaurant.deliveryTimeMinutes.toString(),
+                    restaurant.filterIds.toString(),
                     URLEncoder.encode(restaurant.imageUrl, StandardCharsets.UTF_8.toString())
                 )//
 
@@ -220,11 +220,11 @@ fun RestaurantNameCard(Id: String?,name : String?
 //                Spacer(modifier = Modifier.size(50.dp))
                 Text(text = name.toString(),color = Color.Black, fontSize = 30.sp)
 //                Spacer(modifier = Modifier.size(15.dp))
-                Text(text =rating.toString(),color = Color.Gray, fontSize = 30.sp)
+//                Text(text =rating.toString(),color = Color.Gray, fontSize = 30.sp)
 if (restStatus==true){
-    Text(text = "Open", color = Color(0xff3ae38e), fontSize = 20.sp)
+    Text(text = "Open", color = CustomColors.textOpen, fontSize = 30.sp)
 }else{
-    Text(text = "Closed",color = Color(0xff3ae38e), fontSize = 30.sp)
+    Text(text = "Closed",color = CustomColors.textOpen, fontSize = 30.sp)
 }
 //            Spacer(modifier = Modifier.size(15.dp))
 

@@ -6,6 +6,7 @@ import android.os.Build
 import android.util.Log
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -16,6 +17,7 @@ import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -90,8 +92,7 @@ fun MainContent(navController: NavController) {
     val viewModel: MainViewModel = hiltViewModel()
     val restaurant = viewModel.restaurants.collectAsState()
     val context = LocalContext.current
-
-
+//    val filterId  = viewModel.resFilter.value
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -106,30 +107,44 @@ fun MainContent(navController: NavController) {
                 is Resource.Success -> {
                     UpperRow(it.result)
                     RestaurantsList(it.result, navController)
+//                    Text(text = filterId?.name.toString())
                 }
 
                 is Resource.Failure -> {
-                    Toast.makeText(context, it.exception.message!!, Toast.LENGTH_LONG).show()
+//                    Toast.makeText(context, it.exception.message!!, Toast.LENGTH_LONG).show()
                     Log.d("error", it.exception.message!!)
                     Text(text = it.exception.message.toString(), Modifier.fillMaxSize())
-                }
 
+//                    DisplayErrorMessage(errorMessages)
+                }
                 Resource.Loading -> {
                     Toast.makeText(context, "Loading", Toast.LENGTH_LONG).show()
                 }
 
                 else -> {
 
-
                 }
             }
-
-
         }
 
     }
 }
-
+@Composable
+fun DisplayErrorMessage(errorMessages: List<String>) {
+    LazyColumn {
+        items(errorMessages) { errorMessage ->
+            Box(
+                modifier = Modifier.fillMaxSize()
+            ) {
+                BasicTextField(
+                    value = errorMessage,
+                    onValueChange = { },
+                    modifier = Modifier.fillMaxSize()
+                )
+            }
+        }
+    }
+}
 
 @Composable
 fun RestaurantsList(restaurants: List<Restaurant>, navController: NavController) {

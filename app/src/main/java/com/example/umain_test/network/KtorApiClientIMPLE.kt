@@ -2,7 +2,7 @@ package com.example.umain_test.network
 
 
 import com.example.umain_test.model.AllRestaurants
-import com.example.umain_test.model.FilterIds
+import com.example.umain_test.model.FilterId
 import com.example.umain_test.model.RestarantStatus
 import com.example.umain_test.model.Restaurant
 import com.example.umain_test.util.Resource
@@ -27,10 +27,12 @@ class KtorApiClientIMPLE @Inject constructor(
             e.printStackTrace()
             Resource.Failure(e)
         }
+        finally {
+            myClient.close()
+        }
     }
+    
     override suspend fun restaurantStatus(Id:String): RestarantStatus {
-
-
         return myClient.get {
             url {
                 takeFrom(Constants.RESTAURANT_STATUS+Id)
@@ -38,7 +40,13 @@ class KtorApiClientIMPLE @Inject constructor(
         }
     }
 
-//    override suspend fun filterRestaurant(): Resource<List<FilterIds>> {
+//    override suspend fun restaurantFilter(): FilterId {
+//       return myClient.get{
+//           url(Constants.FILTER_RESTAURANTS)
+//       }
+//    }
+
+//    override suspend fun filterRestaurant(): Resource<List<FilterId>> {
 //        return try {
 //            Resource.Success(
 //                myClient.get<Restaurant> {
