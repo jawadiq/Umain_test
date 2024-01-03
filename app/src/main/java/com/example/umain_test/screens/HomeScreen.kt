@@ -110,7 +110,7 @@ fun MainContent(navController: NavController) {
                 is Resource.Failure -> {
                  mytoast(context,it.exception.message.toString())
                     Log.d("error", it.exception.message!!)
-                    Text(text = it.exception.message.toString(), Modifier.fillMaxSize())
+
 
                 }
                 Resource.Loading -> {
