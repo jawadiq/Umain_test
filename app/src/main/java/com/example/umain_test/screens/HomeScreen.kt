@@ -101,24 +101,20 @@ fun MainContent(navController: NavController) {
         var isVisible by remember {
             mutableStateOf(false)
         }
-
         restaurant.value.let {
             when (it) {
                 is Resource.Success -> {
                     UpperRow(it.result)
                     RestaurantsList(it.result, navController)
-//                    Text(text = filterId?.name.toString())
                 }
-
                 is Resource.Failure -> {
-//                    Toast.makeText(context, it.exception.message!!, Toast.LENGTH_LONG).show()
+                 mytoast(context,it.exception.message.toString())
                     Log.d("error", it.exception.message!!)
                     Text(text = it.exception.message.toString(), Modifier.fillMaxSize())
 
-//                    DisplayErrorMessage(errorMessages)
                 }
                 Resource.Loading -> {
-                    Toast.makeText(context, "Loading", Toast.LENGTH_LONG).show()
+                    mytoast(context,"Loading")
                 }
 
                 else -> {
@@ -127,22 +123,6 @@ fun MainContent(navController: NavController) {
             }
         }
 
-    }
-}
-@Composable
-fun DisplayErrorMessage(errorMessages: List<String>) {
-    LazyColumn {
-        items(errorMessages) { errorMessage ->
-            Box(
-                modifier = Modifier.fillMaxSize()
-            ) {
-                BasicTextField(
-                    value = errorMessage,
-                    onValueChange = { },
-                    modifier = Modifier.fillMaxSize()
-                )
-            }
-        }
     }
 }
 
@@ -159,14 +139,9 @@ fun RestaurantsList(restaurants: List<Restaurant>, navController: NavController)
                             + "/$name"
                             + "/$rating"
                             + "/$test"
-
                 );
-
-
             }
         }
-
-
     }
 }
 

@@ -26,20 +26,26 @@ class KtorApiClientIMPLE @Inject constructor(
         } catch (e: Exception) {
             e.printStackTrace()
             Resource.Failure(e)
-        }
-        finally {
+        } finally {
             myClient.close()
         }
     }
-    
-    override suspend fun restaurantStatus(Id:String): RestarantStatus {
+
+    override suspend fun restaurantStatus(Id: String): RestarantStatus {
         return myClient.get {
             url {
-                takeFrom(Constants.RESTAURANT_STATUS+Id)
+                takeFrom(Constants.RESTAURANT_STATUS + Id)
             }
         }
     }
 
+    override suspend fun getRestaurantFilter(): List<FilterId> {
+
+     return   myClient.get<List<FilterId>> {
+            url(Constants.FILTER_RESTAURANTS)
+        }
+    }
+    
 }
 
 

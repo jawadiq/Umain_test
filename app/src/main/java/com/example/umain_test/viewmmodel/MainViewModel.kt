@@ -28,8 +28,8 @@ class MainViewModel @Inject constructor(
 
     private val _restaurantStatus = mutableStateOf<RestarantStatus?>(null)
     val resStatus : State<RestarantStatus?> = _restaurantStatus
-
-
+private val _filterIds = mutableStateOf<List<FilterId>?>(null)
+    val filtersIds : State<List<FilterId>?> = _filterIds
     init{
         viewModelScope.launch {
             _restarants.value = Resource.Loading

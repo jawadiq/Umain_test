@@ -179,7 +179,7 @@ fun RowCard( restaurant: Restaurant,
                         .size(50.dp)
                 )
 
-            Text(text = restaurant.name, color = Color.Black,fontWeight = FontWeight.Bold)
+            Text(text = restaurant.filterIds.toString(), color = Color.Black,fontWeight = FontWeight.Bold)
             }
 
 

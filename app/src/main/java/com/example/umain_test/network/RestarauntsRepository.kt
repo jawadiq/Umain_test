@@ -12,7 +12,7 @@ interface RestarauntsRepository {
 
     suspend fun restaurantStatus (Id:String): RestarantStatus
 
-//suspend fun restaurantFilter (): FilterId
+suspend fun getRestaurantFilter() : List<FilterId>
 
 
 }
