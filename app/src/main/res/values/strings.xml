@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Umain_test</string>
+    <string name="head_name">Umain</string>
+    <string name="delivery_minutes">Minutes</string>
+    <string name="take_out">Take out</string>
+    <string name="open_close">Open</string>
 </resources>
